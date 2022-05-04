@@ -60,7 +60,19 @@ function selectionSort(array) {
   // el array recibido como parámetro utilizando dos arreglos
   // Devolver el array ordenado resultante
   // Tu código:
-
+  for (let i=0 ; i<array.length; i++){
+    let menor = array[i];
+    let menorIndice = i;
+    for (let j=i; j<array.length -1;j++){
+      if(array[j+i]<menor){
+        menor =array[j+1];
+        menorIndice = j+1;
+      }
+    }
+    array[menorIndice]=array[i];
+    array[i]=menor;
+  }
+  return array;
 }
 
 
