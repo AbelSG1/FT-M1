@@ -7,27 +7,59 @@ function counter() {
   // ejemplo: const newCounter = counter();
   // newCounter(); // 1
   // newCounter(); // 2
+  var acumulador = 0
+   var a =  function (){
+       return acumulador = acumulador +1;
+       
+  }
+  return a;
+  
 }
+
+
 
 function cacheFunction(cb) {
   // Usa closures para crear un caché para la función cb.
   // la función que retornas debe aceptar un solo argumento e invocar a cb con ese argumento
-  // cuando la función que hayas retornado es invocada de nuevo, debería guardar el argumento y el resultado de la invocacion
-  // cuando la función que retornaste sea invocada de nuevo con un argumento con el cual se había invocado anterioremente, no deberia invocar de nuevo a cb
+  // cuando la función que hayas retornado es invocada de nuevo, debería guardar el
+  // argumento y el resultado de la invocacion
+  // cuando la función que retornaste sea invocada de nuevo con un argumento con el
+  // cual se había invocado anterioremente, no deberia invocar de nuevo a cb
   // debería retornar el resultado (previamente guardado)
   // Ejemplo:
   // cb -> function(x) { return x * x; }
-  // si invocas la function que retornaste con 5, adentro deberia invocar cb(5) y retornar 25.
+  // si invocas la function que retornaste con 5, adentro deberia invocar cb(5) y 
+  //retornar 25.
   // si la invocas de nuevo con 5, deberia retornar 25 (guardado previament en el cache)
   // Tips, usá un objeto donde cada propiedad sea un argumento, y el valor el resultado.
   // usá hasOwnProperty!
-}
 
+  // cb es una funcion existente
+  //const cb = function(x) {
+   // return x * 2;
+   //cb(2); //4
+  // return function  (argumento){ cb(argumeto);}
+  // conficional que verifique si el argumento y el resultado no fueron calculados 
+  // anteriormente en el caso que hayan sido calculados devuelve lo que gurdaste 
+  // en el objeto 
+  let cache = {};
+  return function (argumento){
+    if(cache.hasOwnProperty(argumento)){
+      return cache[argumento];
+    } else {
+      return cache[argumento] = cb(argumento)
+    }
+  }
+
+                              
+}
+ 
 // Bind
 
 var instructor = {
   nombre: "Franco",
   edad: 25
+
 }
 
 var alumno = {
@@ -38,21 +70,27 @@ var alumno = {
 function getNombre(){
   return this.nombre;
 }
- // Escribir código, sin modificar lo que ya se encuentra escrito arriba, para poder llamar al método getNombre para obtener primero el nombre del instructor y luego para obtener el nombre del alumno.
+ // Escribir código, sin modificar lo que ya se encuentra escrito arriba, para poder
+ // llamar al método getNombre para obtener primero el nombre del instructor y luego 
+ // para obtener el nombre del alumno.
 // Modificar los undefined por el código correspondiente en cada caso
 // Pista, tenes que bindear el this!
-let getNombreInstructor = undefined;
-let getNombreAlumno = undefined;
+let getNombreInstructor = getNombre.bind(instructor);
+getNombreInstructor();
+let getNombreAlumno = getNombre.bind(alumno);
+getNombreAlumno();
 
-
-/*Guardar en las siguientes tres variables una función que devuelva una cadena utilizando la función "crearCadena"
-y el delimitador especificado. La idea es realizarlo con la función bind para poder volver a utilizarlo múltiples veces luego:
+/*Guardar en las siguientes tres variables una función que devuelva una cadena 
+//utilizando la función "crearCadena"
+y el delimitador especificado. La idea es realizarlo con la función bind para poder
+// volver a utilizarlo múltiples veces luego:
 
 1. textoAsteriscos
 2. textoGuiones
 3. textoUnderscore
 
-Esto nos va a permitir llamar por ejemplo al método "textoAsteriscos" únicamente pasándole un argumento en vez de los tres que recibe "crearCadena"
+Esto nos va a permitir llamar por ejemplo al método "textoAsteriscos" únicamente 
+//pasándole un argumento en vez de los tres que recibe "crearCadena"
 */
 function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena){
     return delimitadorIzquierda + cadena + delimitadorDerecha;
@@ -61,11 +99,11 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena){
 // Modificar los undefined por el código correspondiente en cada caso
 // Pista, tenes que usar bind para "bindear" algunos parámetros de la función crearCadena.
 
-let textoAsteriscos = undefined;
+let textoAsteriscos = crearCadena.bind(this, "*","*" );
 
-let textoGuiones = undefined;
+let textoGuiones = crearCadena.bind(this,"-","-");
 
-let textoUnderscore = undefined;
+let textoUnderscore = crearCadena.bind(this,"_","_");
 
 
 
